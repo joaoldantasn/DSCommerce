@@ -17,7 +17,6 @@ import com.jlucas.dscommerce.repositories.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
 
 
-
 @Service
 public class ProductService {
 	
@@ -35,9 +34,9 @@ public class ProductService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(Pageable pageable){
-		Page<Product> result = repository.findAll(pageable);
+	public Page<ProductDTO> findAll(String name, Pageable pageable){
 		//Para converter lista de produto em lista de produtoDTO
+		Page<Product> result = repository.searchByName(name, pageable);
 		return result.map(x -> new ProductDTO(x));
 	}
 	
